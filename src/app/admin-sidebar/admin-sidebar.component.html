@@ -1,0 +1,19 @@
+<div *ngIf='(user|async)?.uid' id="admin-sidebar">
+  <div class="admin-list">
+    <h2>Admin</h2>
+    <!-- <a class="option" (click)="openModal();addGallery()">Add Gallery</a>
+    <a class="option" (click)="openModal();removeGallery()">Remove Gallery</a>
+    <a *ngIf="galleryName" class="option" (click)="openModal();editGallery()">Edit Gallery</a> -->
+    <a class="option" (click)="openModal();addImages()">Add Maps</a>
+    <br>
+    <a class="option" (click)="logOut()">Log Out</a>
+  </div>
+</div>
+<div class="modal">
+  <div  class="close"><img (click)="closeModal()" src="../../assets/img/close-icon-white.png"  alt="close modal"></div>
+  <div *ngIf="addingImage">
+    <gallery-upload></gallery-upload>
+  </div>
+</div>
+<div id="modal-bg" (click)="closeModal()"></div>
+<div *ngIf='(user|async)?.uid' (click)="togglePanel()" class="admin-toggle"><img src="../../assets/img/gear.png" alt="open admin panel"></div>

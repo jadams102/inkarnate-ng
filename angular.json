@@ -24,9 +24,20 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "./node_modules/jquery-ui-dist/jquery-ui.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jquery-ui-dist/jquery-ui.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "firebase/app",
+              "@firebase/database",
+              "@firebase/auth",
+              "jquery",
+              "firebase"
+            ]
           },
           "configurations": {
             "production": {

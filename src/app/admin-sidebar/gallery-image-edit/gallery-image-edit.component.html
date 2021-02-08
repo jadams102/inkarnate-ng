@@ -1,0 +1,11 @@
+<div *ngIf="imageToEdit" class="edit-image-modal">
+    <img class="close" src="../../assets/img/close-icon-white.png" (click)="closeModal()" alt="">
+    <h3>Edit Image Details</h3>
+    <div class="form-group">
+      <input [(ngModel)]="imageToEdit.name" type="text" class="form-control" placeholder="Title">
+    </div>
+    <div class="form-group">
+      <textarea [(ngModel)]="imageToEdit.description" type="text" class="form-control" placeholder="Description"></textarea>
+    </div>
+    <button class="btn btn-info" (click)="updateImage(imageToEdit); closeModal();">Save Changes</button>
+</div>

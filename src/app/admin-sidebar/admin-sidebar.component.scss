@@ -1,0 +1,95 @@
+div#admin-sidebar {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    padding: 20px;
+    background-color: black;
+    z-index: 1040;
+    transition: all ease-in 0.5s;
+    div.admin-list {
+        h2 {
+            color: white;
+        }
+        a.option{
+            color: white;
+            display: block;
+            width: 100%;
+        }
+    }
+    &.show {
+        left: 0px;
+    }
+}
+div.admin-toggle {
+    position: fixed;
+    top: 100px;
+    left: 0px;
+    width: 50px;
+    transition: all ease-in 0.5s;
+    cursor: pointer;
+    img {
+        max-width: 100%;
+    }
+    &.show {
+        left: 250px;
+    }
+
+}
+div.modal {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.85);
+    border: rgba(255, 255, 255, 0.85) 1px solid;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    max-height: 80vh;
+    margin-left: -150px;
+    margin-top: -40vh;
+    padding: 15px;
+    z-index: 1042;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    display: none;
+    visibility: hidden;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    &.show{
+        display: block;
+        visibility: visible;
+    }
+    .close {
+
+        width: 25px;
+        img {
+            width: 100%;
+        }
+    }
+
+    @media screen and (min-width: 500px) {
+        width: 450px;
+        margin-left: -225px;
+    }
+
+    @media screen and (min-width: 650px) {
+        width: 600px;
+        margin-left: -300px;
+    }
+}
+div#modal-bg {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    display: none;
+    z-index: 1041;
+    &.show {
+       visibility: visible;
+       display: block; 
+    }
+}

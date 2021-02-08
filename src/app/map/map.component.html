@@ -1,0 +1,13 @@
+<div (keydown)="onKeyDownEvent($event)" style="overflow: hidden">
+
+
+    <div id="scene" #scene>
+      <img class="token ghast" cdkDrag [cdkDragDisabled]="!panZoomPaused" src="./../../assets/Ghast.jpeg">
+        <img class="current-map" src="./../../assets/test.jpg">
+    </div>
+  </div>
+
+<br/>
+      <button class="transparent-button" (click)="zoomToggle(false)">-</button>
+      <span>{{currentZoomLevel * 100}}%</span>
+      <button class="transparent-button" (click)="zoomToggle(true)">+</button>

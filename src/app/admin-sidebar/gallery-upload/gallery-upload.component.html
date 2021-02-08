@@ -1,0 +1,23 @@
+<div class="gallery-upload">
+  <h3>Add Images</h3>
+  <div class="dropzone" 
+       dropzone
+       (hovered)="toggleHover($event)"
+       (dropped)="onDrop($event)"
+       [class.hovering]="isHovering">
+  
+       <!-- <h3>Uploading to <span class="gallery-title">{{basePath}}</span></h3> -->
+       <p>Drag and Drop Files</p>
+       <div class="file">
+          <input class="file-input" accept=".png,.jpg,.jpeg,.gif" type="file" multiple="multiple" (change)="onDrop($event.target.files)">
+        </div>
+  </div>
+  <div class="upload-errors">
+    <p *ngFor="let error of errors; let i = index">{{errors[i]}}</p>
+  
+  </div>
+  
+  <div class="upload-task-list" *ngFor="let upload of uploads">
+    <gallery-upload-task [basePath]="basePath" [upload]="upload"></gallery-upload-task>
+  </div>
+</div>
