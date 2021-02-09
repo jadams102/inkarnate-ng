@@ -10,6 +10,7 @@ div#admin-sidebar {
     z-index: 1040;
     transition: all ease-in 0.5s;
     div.admin-list {
+        max-height: 90vh;
         h4 {
             display: inline-block;
         }
@@ -23,6 +24,7 @@ div#admin-sidebar {
         ul.map-list, ul.token-list {
             list-style: none;
             padding-left: 10px;
+            overflow-y: auto;
             li {
                 img {
                     width: 15px;
@@ -38,9 +40,10 @@ div#admin-sidebar {
                     }
 
                     &.token-preview {
-                        display: block;
-                        width: 100px;
+                        display: inline-block;
+                        width: 20px;
                         margin-left: 0px;
+                        opacity: 100%;
                     }
                 }
             }
@@ -50,7 +53,6 @@ div#admin-sidebar {
             margin-top: 10px;
             padding:0; 
             width:100%; 
-            columns: 2;
             list-style: none;
             li {
                 break-inside: avoid-column;

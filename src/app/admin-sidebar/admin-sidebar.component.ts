@@ -62,7 +62,16 @@ export class AdminSidebarComponent implements OnInit {
       map(actions => 
       actions.map(a => ({ key: a.key, ...a.payload.val() }))
     )).subscribe((data) => {
-          this.tokens = data;
+      let players = []
+      let otherTokens = []
+      for(let i = 0; i < data.length; i++) {
+        if(data[i].isPlayer) {
+          players.push(data[i]);
+        } else {
+          otherTokens.push(data[i]);
+        }
+      }
+      this.tokens = players.concat(otherTokens);
     }
     );
 
@@ -70,7 +79,6 @@ export class AdminSidebarComponent implements OnInit {
     this.editingMap = false;
     this.addingToken = false;
     this.editingToken = false;
-
 
     this.modalOpen = false;
     this.panelOpen = false;

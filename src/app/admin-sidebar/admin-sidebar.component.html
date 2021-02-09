@@ -18,10 +18,10 @@
 
     <ul class="token-list">
       <li *ngFor="let token of tokens">
+        <img (click)="addTokenToCurrentMap(token)" class="token-preview" src="{{token.url}}">
         <a>{{token.name}}</a>    
         <img (click)="editToken(token);openModal()" src="../../assets/img/edit-icon-white.png">
         <img (click)="removeToken(token)" src="../../assets/img/remove-icon-red.png">
-        <img (click)="addTokenToCurrentMap(token)" class="token-preview" src="{{token.url}}">
 
       </li>
     </ul>

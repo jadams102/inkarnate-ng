@@ -48,7 +48,6 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.authService.authUser().subscribe((data) => {
       this.user = data;
     });
-    console.log(this.user)
     this.panZoomPaused = true;
   }
 
@@ -128,11 +127,12 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
-    this.zoomLevels = [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
-    this.currentZoomLevel = this.zoomLevels[4];
-    // panzoom(document.querySelector('#scene'));
-    this.panZoomController = panzoom(this.scene.nativeElement);
-    this.panZoomController.pause()
+    if(this.currentMap) {
+      this.zoomLevels = [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
+      this.currentZoomLevel = this.zoomLevels[4];
+      // panzoom(document.querySelector('#scene'));
+      this.panZoomController = panzoom(this.scene.nativeElement);
+      this.panZoomController.pause()
+    }
   }
 }
