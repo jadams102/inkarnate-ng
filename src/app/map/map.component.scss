@@ -1,7 +1,25 @@
 .token {
-    width: 60px;
+    width: 90px;
     position: absolute;
     cursor: pointer;
+    &.tiny {
+        width: 30px;
+    }
+    &.small {
+        width: 60px;
+    }
+    &.medium {
+        width: 90px;
+    }
+    &.large {
+        width: 110px;
+    }
+    &.huge {
+        width: 130px;
+    }
+    &.gargantuan {
+        width: 200px;
+    }
 }
 
 div.map-container {

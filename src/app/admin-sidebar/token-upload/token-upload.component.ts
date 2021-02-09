@@ -31,12 +31,13 @@ export class TokenUploaderComponent {
     this.files = event.target.files
   }
 
-  uploadFiles(name: string, description: string, size: string){
+  uploadFiles(name: string, description: string, size: string, isPlayer: boolean){
     const filesToUpload = this.files;
       this.token = new Token(filesToUpload[0]);
       this.token.name = name;
       this.token.description = description;
       this.token.size = size;
+      this.token.isPlayer = isPlayer;
       this.tokenService.uploadToken(this.token);
   }
 }

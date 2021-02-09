@@ -1,6 +1,9 @@
 <div (keydown)="onKeyDownEvent($event)" class="map-container">
     <div id="scene" #scene>
-      <img class="token ghast" cdkDrag [cdkDragDisabled]="!panZoomPaused" src="./../../assets/Ghast.jpeg">
+      <div *ngFor="let token of currentTokens; index as i" class="token-container">
+        <img class="token {{token.size}}" cdkDrag [cdkDragDisabled]="!panZoomPaused" (cdkDragEnded)="updateTokenPosition(i, $event)" style="{{token.position}}" src="{{token.url}}">
+
+      </div>
         <img *ngIf="currentMap" class="current-map" src={{currentMap.url}}>
     </div>
   </div>

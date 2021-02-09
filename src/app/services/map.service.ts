@@ -47,6 +47,13 @@ export class MapService {
     })
   }
 
+  updateMapTokens(tokenArray: Token[], mapKey: string) {
+    let mapEntry = this.getMapById(mapKey);
+    mapEntry.update({
+      tokens: tokenArray
+    })
+  }
+
   removeMap(map) {
     let imageEntry = this.getMapById(map.key);
     console.log(imageEntry);

@@ -16,13 +16,12 @@
     <h4>Tokens</h4>
     <img class="add-map-icon" (click)="openModal();addToken()" src="../../assets/img/add-icon-success.png">
 
-    <ul class="map-list">
+    <ul class="token-list">
       <li *ngFor="let token of tokens">
         <a>{{token.name}}</a>    
         <img (click)="editToken(token);openModal()" src="../../assets/img/edit-icon-white.png">
         <img (click)="removeToken(token)" src="../../assets/img/remove-icon-red.png">
-
-        <img class="token-preview" src="{{token.url}}">
+        <img (click)="addTokenToCurrentMap(token)" class="token-preview" src="{{token.url}}">
 
       </li>
     </ul>

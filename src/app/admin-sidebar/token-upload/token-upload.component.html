@@ -1,56 +1,44 @@
 
-
-<h2 class="heading">Add Token</h2>
-<div *ngIf="token">
-  <div class="progress">
-    <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': upload?.progress + '%' }"></div>
+<div class="token-upload">
+  <h2 class="heading">Add Token</h2>
+  <div *ngIf="token">
+    <div class="progress">
+      <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': upload?.progress + '%' }"></div>
+    </div>
+    Progress: {{upload?.progress}}% Complete
   </div>
-  Progress: {{upload?.progress}}% Complete
-</div>
-<div class="form-group">
-  <input type="file" (change)="handleFiles($event)" class="form-control">
-</div>
-<div class="form-group">
-  <label>Title</label>
-  <input #newTitle type="text" placeholder="Title..." class="form-control">
-</div>
-<div class="form-group">
-  <label>Description</label>
-  <textarea #newDescription placeholder="Title..." class="form-control"></textarea>
-</div>
-
-<div class="form-group">
-  <label>Size</label>
-  <select #newSize class="form-control">
-    <option value="tiny">Tiny</option>
-    <option value="small">Small</option>
-    <option selected value="medium">Medium</option>
-    <option value="large">Large</option>
-    <option value="huge">Huge</option>
-    <option value="gargantuan">Gargantuan</option>
-  </select>
-</div>
-
-<button class="btn btn-primary" (click)="uploadFiles(newTitle.value, newDescription.value, newSize.value)">Upload Selected Image</button>
- 
-<!-- <div class="gallery-upload">
-  <h3>Add Tokens</h3>
-  <div class="dropzone" 
-       dropzone
-       (hovered)="toggleHover($event)"
-       (dropped)="onDrop($event)"
-       [class.hovering]="isHovering">
-         <p>Drag and Drop Files</p>
-       <div class="file">
-          <input class="file-input" accept=".png,.jpg,.jpeg,.gif" type="file" multiple="multiple" (change)="onDrop($event.target.files)">
-        </div>
+  <div class="form-group">
+    <input type="file" (change)="handleFiles($event)" class="form-control">
   </div>
-  <div class="upload-errors">
-    <p *ngFor="let error of errors; let i = index">{{errors[i]}}</p>
-  
+  <div class="form-group">
+    <label>Title</label>
+    <input #newTitle type="text" placeholder="Title..." class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <textarea #newDescription placeholder="Title..." class="form-control"></textarea>
   </div>
   
-  <div class="upload-task-list" *ngFor="let upload of uploads">
-    <token-upload-task [basePath]="basePath" [upload]="upload"></token-upload-task>
+  <div class="form-group">
+    <label>Size</label>
+    <select #newSize class="form-control">
+      <option value="tiny">Tiny</option>
+      <option value="small">Small</option>
+      <option selected value="medium">Medium</option>
+      <option value="large">Large</option>
+      <option value="huge">Huge</option>
+      <option value="gargantuan">Gargantuan</option>
+    </select>
   </div>
-</div> -->
+  
+  <div class="form-group">
+    <label>Is Player</label>
+    <select #newIsPlayer class="form-control">
+      <option selected value="false">False</option>
+      <option value="true">True</option>
+    </select>
+  </div>
+  
+  <button class="btn btn-primary" (click)="uploadFiles(newTitle.value, newDescription.value, newSize.value, newIsPlayer.value)">Upload Selected Image</button>
+</div>
+

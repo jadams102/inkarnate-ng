@@ -1,12 +1,13 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { MapService } from '../services/map.service';
 import { Map } from '../models/map.model';
+import { Token } from '../models/token.model';
 import panzoom from "panzoom";
-import * as jquery from 'jquery';
 import { AuthenticationService } from '../services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import { CdkDragEnd } from '@angular/cdk/drag-drop';
 
 
 @Component({
@@ -26,21 +27,24 @@ export class MapComponent implements OnInit, AfterViewInit {
   zoomLevels: number[];
   panZoomPaused;
   user;
-
+  currentTokens: Token[];
   currentMap: Map;
-
+  currentMapKey: string;
   currentZoomLevel: number;
 
   ngOnInit() {
-    this.mapService.getMaps().valueChanges().subscribe((data) => {
-      for(let i = 0; i < data.length; i++) {
-        console.log(data[i]);
-        if(data[i].current) {
-          this.currentMap = data[i];
-          console.log(this.currentMap);
-        }
-      }
-    })
+    this.mapService.getMaps().snapshotChanges().pipe(
+      map(actions => 
+      actions.map(a => ({ key: a.key, ...a.payload.val() }))
+    )).subscribe((data) => {
+          for(let i = 0; i < data.length; i++) {
+            if(data[i].current) {
+              this.currentMap = data[i];
+              this.currentMapKey = data[i].key;
+              this.currentTokens = data[i].tokens;
+            }
+          }
+    });
     this.user = this.authService.authUser();
     this.panZoomPaused = true;
   }
@@ -92,10 +96,23 @@ export class MapComponent implements OnInit, AfterViewInit {
     } else if (event.altKey && this.panZoomController.isPaused() === true){
       this.panZoomController.resume()
       this.panZoomPaused = false;
-
-
     }
-    console.log(event.altKey);
+  }
+
+  updateTokenPosition(i, $event: CdkDragEnd) {
+    let positionAry = $event.source.element.nativeElement.style.transform.split(')',2);
+    let newPositionAry = positionAry[0].split('(', 2)[1].split(',',2);
+    let oldPositionAry = positionAry[1].split('(', 2)[1].split(',',2);
+    let updatedGlobalPositionAry = [];
+    for(let e = 0; e < newPositionAry.length; e++) {
+      let newPos = parseInt(newPositionAry[e], 10) + parseInt(oldPositionAry[e], 10);
+      updatedGlobalPositionAry.push(newPos);
+    }
+    let updatedGlobalPosStr = 'transform: translate3D(' + updatedGlobalPositionAry[0] + "px, " + updatedGlobalPositionAry[1] + "px, 0px)";
+    let newTokenArray = this.currentTokens;
+    newTokenArray[i].position = updatedGlobalPosStr;
+    this.mapService.updateMapTokens(newTokenArray, this.currentMapKey);
+
   }
 
   ngAfterViewInit() {

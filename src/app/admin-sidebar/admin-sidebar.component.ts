@@ -32,6 +32,8 @@ export class AdminSidebarComponent implements OnInit {
 
   mapToEdit: Map;
   currentMap: Map;
+  currentMapTokens: Token[];
+  currentMapKey: string;
 
   tokenToEdit: Token;
 
@@ -49,6 +51,8 @@ export class AdminSidebarComponent implements OnInit {
           for(let i = 0; i < data.length; i++) {
             if(data[i].current) {
               this.currentMap = data[i];
+              this.currentMapKey = data[i].key;
+              this.currentMapTokens = data[i].tokens;
             }
           }
         this.maps = data;
@@ -125,7 +129,19 @@ export class AdminSidebarComponent implements OnInit {
     this.editingMap = false;
     this.addingToken = true;
     this.editingToken = false;
+  }
 
+  addTokenToCurrentMap(token: Token) {
+    if(this.currentMap.tokens === undefined) {
+      token.position = "transform: translate3d(796px, 334px, 0px)"
+      let newTokenArray = [token];
+      this.mapService.updateMapTokens(newTokenArray, this.currentMapKey)
+    } else {
+      token.position = "transform: translate3d(796px, 334px, 0px)"
+      let newTokenArray = this.currentMapTokens;
+      newTokenArray.push(token);
+      this.mapService.updateMapTokens(newTokenArray, this.currentMapKey)
+    }
   }
 
   editToken(token: Token) {
