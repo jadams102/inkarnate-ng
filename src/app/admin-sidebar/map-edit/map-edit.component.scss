@@ -1,11 +1,7 @@
 div.edit-image-modal {
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.85);
-    border: rgba(255, 255, 255, 0.85) 1px solid;
     width: 100%;
     z-index: 1001;
     padding: 10px 10px 20px 10px;
-    top: 30%;
     color: white;
     img.close {
         width: 25px;
@@ -21,17 +17,6 @@ div.edit-image-modal {
     button {
         display: block;
         margin: 0px auto;
-    }
-
-    @media(min-width: 768px) {
-        width: 500px;
-        left: 50%;
-        margin-left: -250px;
-    }
-    img {
-        position: absolute;
-        right: 10px;
-        width: 40px;
     }
 
 }

@@ -1,13 +1,11 @@
-<div (keydown)="onKeyDownEvent($event)" style="overflow: hidden">
-
-
+<div (keydown)="onKeyDownEvent($event)" class="map-container">
     <div id="scene" #scene>
       <img class="token ghast" cdkDrag [cdkDragDisabled]="!panZoomPaused" src="./../../assets/Ghast.jpeg">
-        <img class="current-map" src="./../../assets/test.jpg">
+        <img *ngIf="currentMap" class="current-map" src={{currentMap.url}}>
     </div>
   </div>
-
-<br/>
-      <button class="transparent-button" (click)="zoomToggle(false)">-</button>
-      <span>{{currentZoomLevel * 100}}%</span>
-      <button class="transparent-button" (click)="zoomToggle(true)">+</button>
+<div class="zoom-controls">
+  <button class="transparent-button" (click)="zoomToggle(false)">-</button>
+  <span>{{currentZoomLevel * 100}}%</span>
+  <button class="transparent-button" (click)="zoomToggle(true)">+</button>
+</div>

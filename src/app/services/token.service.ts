@@ -6,9 +6,10 @@ import 'firebase/database';
 import * as  firebase from 'firebase';
 import { Map } from '../models/map.model';
 import { Token } from '../models/token.model';
+import { MapService } from '../services/map.service';
 
 @Injectable()
-export class MapService {
+export class TokenService {
   private uid: string;
   maps: AngularFireList<Map>;
   tokens: AngularFireList<Token>;
@@ -21,42 +22,45 @@ export class MapService {
         this.uid = auth.uid;
       }
     });
-    this.maps = this.database.list('maps/');
+    this.tokens = this.database.list('tokens-master/')
   }
 
   getMaps() {
-    return this.maps;
+    return this.tokens;
   }
 
-  getMapById(key: string) {
-    return this.database.object('maps/' + key);
+  getTokenById(key: string) {
+    return this.database.object('tokens-master/' + key);
   }
 
-  updateMap(localUpdatedMap) {
-    let mapEntry = this.getMapById(localUpdatedMap.key);
-    if(localUpdatedMap.name === undefined) {
-      localUpdatedMap.name = '';
+  updateToken(localUpdatedToken) {
+    let tokenEntry = this.getTokenById(localUpdatedToken.key);
+    if(localUpdatedToken.name === undefined) {
+        localUpdatedToken.name = '';
     }
-    if(localUpdatedMap.description === undefined) {
-      localUpdatedMap.description = '';
+    if(localUpdatedToken.description === undefined) {
+        localUpdatedToken.description = '';
     }
-    mapEntry.update({
-      name: localUpdatedMap.name,
-      description: localUpdatedMap.description,
-      current: localUpdatedMap.current
+    tokenEntry.update({
+      name: localUpdatedToken.name,
+      description: localUpdatedToken.description,
     })
   }
 
-  removeMap(map) {
-    let imageEntry = this.getMapById(map.key);
-    console.log(imageEntry);
-    imageEntry.remove();
+  updateTokenPosition(localUpdatedToken) {
+    
+  }
+
+  removeToken(map) {
+    let tokenEntry = this.getTokenById(map.key);
+    console.log(tokenEntry);
+    tokenEntry.remove();
     this.deleteFile(map.title);
   }
 
   deleteFile(name) {
     const storageRef = firebase.storage().ref();
-    const imgRef = storageRef.child( '/maps/' + name);
+    const imgRef = storageRef.child( '/tokens/' + name);
     imgRef.delete()
   }
 }

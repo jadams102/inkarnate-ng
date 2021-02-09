@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { Map } from '../../models/map.model';
 
 @Component({
-  selector: 'gallery-upload',
-  templateUrl: './gallery-upload.component.html',
-  styleUrls: ['./gallery-upload.component.scss']
+  selector: 'map-upload',
+  templateUrl: './map-upload.component.html',
+  styleUrls: ['./map-upload.component.scss']
 })
-export class UploaderComponent {
+export class MapUploaderComponent {
   isHovering: boolean;
 
   uploads: Map[] = [];

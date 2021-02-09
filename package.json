@@ -27,7 +27,6 @@
     "firebase": "^7.16.0",
     "firebase-tools": "8.5.0",
     "jquery": "^3.5.1",
-    "jquery-ui-dist": "^1.12.1",
     "panzoom": "^8.1.0",
     "rxjs": "~6.5.5",
     "rxjs-compat": "^6.6.0",

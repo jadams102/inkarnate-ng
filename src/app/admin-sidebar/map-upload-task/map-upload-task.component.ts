@@ -8,11 +8,11 @@ import { Map } from '../../models/map.model';
 
 
 @Component({
-  selector: 'gallery-upload-task',
-  templateUrl: './gallery-upload-task.component.html',
-  styleUrls: ['./gallery-upload-task.component.scss']
+  selector: 'map-upload-task',
+  templateUrl: './map-upload-task.component.html',
+  styleUrls: ['./map-upload-task.component.scss']
 })
-export class UploadTaskComponent implements OnInit {
+export class MapUploadTaskComponent implements OnInit {
 
   @Input() upload: Map;
   @Input() basePath: string;

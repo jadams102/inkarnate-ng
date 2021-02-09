@@ -1,4 +1,5 @@
 div#admin-sidebar {
+    color: white;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -9,11 +10,36 @@ div#admin-sidebar {
     z-index: 1040;
     transition: all ease-in 0.5s;
     div.admin-list {
-        h2 {
-            color: white;
+        h4 {
+            display: inline-block;
+        }
+        img.add-map-icon {
+            display: inline-block;
+            margin-left: 10px;
+            width: 20px;
+            padding-bottom: 6px;
+            cursor: pointer;
+        }
+        ul.map-list {
+            list-style: none;
+            padding-left: 10px;
+            li {
+                img {
+                    width: 15px;
+                    margin-left: 5px;
+                    cursor: pointer;
+                    &:first-child {
+                        margin-right: 5px;
+                        margin-left: 0px;
+                        opacity: 50%;
+                        &.current-map {
+                            opacity: 100%;
+                        }
+                    }
+                }
+            }
         }
         a.option{
-            color: white;
             display: block;
             width: 100%;
         }

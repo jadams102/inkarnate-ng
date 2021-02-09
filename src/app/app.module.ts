@@ -13,10 +13,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 //Components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { GalleryImageEditComponent } from './admin-sidebar/gallery-image-edit/gallery-image-edit.component';
+import { MapEditComponent } from './admin-sidebar/map-edit/map-edit.component';
 import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
-import { UploaderComponent } from './admin-sidebar/gallery-upload/gallery-upload.component';
-import { UploadTaskComponent } from './admin-sidebar/gallery-upload-task/gallery-upload-task.component';
+import { MapUploaderComponent } from './admin-sidebar/map-upload/map-upload.component';
+import { MapUploadTaskComponent } from './admin-sidebar/map-upload-task/map-upload-task.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MapComponent } from './map/map.component';
 
@@ -42,11 +42,11 @@ export const firebaseConfig = {
     AppComponent,
     HomeComponent,
     LoginComponent,
-    GalleryImageEditComponent,
+    MapEditComponent,
     AdminSidebarComponent,
     DropzoneDirective,
-    UploaderComponent,
-    UploadTaskComponent,
+    MapUploaderComponent,
+    MapUploadTaskComponent,
     MapComponent
   ],
   imports: [

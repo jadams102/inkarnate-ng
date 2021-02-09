@@ -1,6 +1,12 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { MapService } from '../services/map.service';
+import { Map } from '../models/map.model';
 import panzoom from "panzoom";
 import * as jquery from 'jquery';
+import { AuthenticationService } from '../services/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -9,17 +15,34 @@ import * as jquery from 'jquery';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit, AfterViewInit {
+
+  constructor( private mapService: MapService, private authService: AuthenticationService, private router: Router, private route: ActivatedRoute) {
+    // force route reload whenever params change;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
+
   @ViewChild('scene', { static: false }) scene: ElementRef;
   panZoomController;
   zoomLevels: number[];
   panZoomPaused;
+  user;
+
+  currentMap: Map;
 
   currentZoomLevel: number;
 
   ngOnInit() {
+    this.mapService.getMaps().valueChanges().subscribe((data) => {
+      for(let i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        if(data[i].current) {
+          this.currentMap = data[i];
+          console.log(this.currentMap);
+        }
+      }
+    })
+    this.user = this.authService.authUser();
     this.panZoomPaused = true;
-    // jquery('.token').draggable();
-    console.log(jquery('.token'))
   }
 
   zoom() {

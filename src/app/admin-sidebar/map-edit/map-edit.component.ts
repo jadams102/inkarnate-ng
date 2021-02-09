@@ -3,20 +3,20 @@ import { MapService } from '../../services/map.service';
 import * as jquery from 'jquery';
 
 @Component({
-  selector: 'app-gallery-image-edit',
-  templateUrl: './gallery-image-edit.component.html',
-  styleUrls: ['./gallery-image-edit.component.scss']
+  selector: 'app-map-edit',
+  templateUrl: './map-edit.component.html',
+  styleUrls: ['./map-edit.component.scss']
 })
-export class GalleryImageEditComponent implements OnInit {
-  @Input() imageToEdit;
+export class MapEditComponent implements OnInit {
+  @Input() mapToEdit;
 
   constructor(private MapService: MapService) { }
 
   ngOnInit() {
   }
 
-  updateImage(image) {
-    this.MapService.updateImage(image);
+  updateImage(map) {
+    this.MapService.updateMap(map);
   }
 
   closeModal() {

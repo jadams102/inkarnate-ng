@@ -1,0 +1,12 @@
+<div class="edit-image-modal">
+  <h3>Edit Map Details</h3>
+  <div class="form-group">
+    <input [(ngModel)]="mapToEdit.name" type="text" class="form-control" placeholder="Title">
+  </div>
+  <div class="form-group">
+    <textarea [(ngModel)]="mapToEdit.description" type="text" class="form-control" placeholder="Description"></textarea>
+  </div>
+  <button class="btn btn-info" (click)="updateImage(mapToEdit); closeModal();">Save Changes</button>
+</div>
+
+

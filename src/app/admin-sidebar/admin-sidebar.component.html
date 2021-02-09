@@ -1,18 +1,32 @@
 <div *ngIf='(user|async)?.uid' id="admin-sidebar">
   <div class="admin-list">
     <h2>Admin</h2>
-    <!-- <a class="option" (click)="openModal();addGallery()">Add Gallery</a>
-    <a class="option" (click)="openModal();removeGallery()">Remove Gallery</a>
-    <a *ngIf="galleryName" class="option" (click)="openModal();editGallery()">Edit Gallery</a> -->
-    <a class="option" (click)="openModal();addImages()">Add Maps</a>
+    <h4>Maps</h4><img class="add-map-icon" (click)="openModal();addMap()" src="../../assets/img/add-icon-success.png">
+    <ul class="map-list">
+      <li *ngFor="let map of maps">
+        <img (click)="setCurrentMap(map)" src="../../assets/img/home-icon-white.png" [class.current-map]="map.current"><a>{{map.title}}</a><img (click)="editMap(map);openModal()" src="../../assets/img/edit-icon-white.png"><img (click)="removeMap(map)" src="../../assets/img/remove-icon-red.png">
+      </li>
+    </ul>
+    <br/>
+  </div>
+  <div class="admin-list">
+    <h4>Tokens</h4><img class="add-map-icon" (click)="openModal();addToken()" src="../../assets/img/add-icon-success.png">
+    <ul class="map-list">
+      <!-- <li *ngFor="let map of maps">
+        <img (click)="setCurrentMap(map)" src="../../assets/img/home-icon-white.png" [class.current-map]="map.current"><a>{{map.title}}</a><img (click)="editMap(map);openModal()" src="../../assets/img/edit-icon-white.png"><img (click)="removeMap(map)" src="../../assets/img/remove-icon-red.png">
+      </li> -->
+    </ul>
     <br>
     <a class="option" (click)="logOut()">Log Out</a>
   </div>
 </div>
 <div class="modal">
   <div  class="close"><img (click)="closeModal()" src="../../assets/img/close-icon-white.png"  alt="close modal"></div>
-  <div *ngIf="addingImage">
-    <gallery-upload></gallery-upload>
+  <div *ngIf="addingMap">
+    <map-upload></map-upload>
+  </div>
+  <div *ngIf="editingMap">
+    <app-map-edit [mapToEdit]="mapToEdit"></app-map-edit>
   </div>
 </div>
 <div id="modal-bg" (click)="closeModal()"></div>
