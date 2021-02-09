@@ -4,17 +4,27 @@
     <h4>Maps</h4><img class="add-map-icon" (click)="openModal();addMap()" src="../../assets/img/add-icon-success.png">
     <ul class="map-list">
       <li *ngFor="let map of maps">
-        <img (click)="setCurrentMap(map)" src="../../assets/img/home-icon-white.png" [class.current-map]="map.current"><a>{{map.title}}</a><img (click)="editMap(map);openModal()" src="../../assets/img/edit-icon-white.png"><img (click)="removeMap(map)" src="../../assets/img/remove-icon-red.png">
+        <img (click)="setCurrentMap(map)" src="../../assets/img/home-icon-white.png" [class.current-map]="map.current">
+        <a>{{map.title}}</a>
+        <img (click)="editMap(map);openModal()" src="../../assets/img/edit-icon-white.png">
+        <img (click)="removeMap(map)" src="../../assets/img/remove-icon-red.png">
       </li>
     </ul>
     <br/>
   </div>
   <div class="admin-list">
-    <h4>Tokens</h4><img class="add-map-icon" (click)="openModal();addToken()" src="../../assets/img/add-icon-success.png">
+    <h4>Tokens</h4>
+    <img class="add-map-icon" (click)="openModal();addToken()" src="../../assets/img/add-icon-success.png">
+
     <ul class="map-list">
-      <!-- <li *ngFor="let map of maps">
-        <img (click)="setCurrentMap(map)" src="../../assets/img/home-icon-white.png" [class.current-map]="map.current"><a>{{map.title}}</a><img (click)="editMap(map);openModal()" src="../../assets/img/edit-icon-white.png"><img (click)="removeMap(map)" src="../../assets/img/remove-icon-red.png">
-      </li> -->
+      <li *ngFor="let token of tokens">
+        <a>{{token.name}}</a>    
+        <img (click)="editToken(token);openModal()" src="../../assets/img/edit-icon-white.png">
+        <img (click)="removeToken(token)" src="../../assets/img/remove-icon-red.png">
+
+        <img class="token-preview" src="{{token.url}}">
+
+      </li>
     </ul>
     <br>
     <a class="option" (click)="logOut()">Log Out</a>
@@ -25,8 +35,14 @@
   <div *ngIf="addingMap">
     <map-upload></map-upload>
   </div>
+  <div *ngIf="addingToken">
+    <token-upload></token-upload>
+  </div>
   <div *ngIf="editingMap">
     <app-map-edit [mapToEdit]="mapToEdit"></app-map-edit>
+  </div>
+  <div *ngIf="editingToken">
+    <app-token-edit [tokenToEdit]="tokenToEdit"></app-token-edit>
   </div>
 </div>
 <div id="modal-bg" (click)="closeModal()"></div>

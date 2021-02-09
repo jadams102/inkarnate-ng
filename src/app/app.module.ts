@@ -13,15 +13,19 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 //Components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { MapEditComponent } from './admin-sidebar/map-edit/map-edit.component';
 import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
 import { MapUploaderComponent } from './admin-sidebar/map-upload/map-upload.component';
 import { MapUploadTaskComponent } from './admin-sidebar/map-upload-task/map-upload-task.component';
+import { MapEditComponent } from './admin-sidebar/map-edit/map-edit.component';
+import { TokenUploaderComponent } from './admin-sidebar/token-upload/token-upload.component';
+import { TokenUploadTaskComponent } from './admin-sidebar/token-upload-task/token-upload-task.component';
+import { TokenEditComponent } from './admin-sidebar/token-edit/token-edit.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MapComponent } from './map/map.component';
 
 //Services
 import { MapService } from './services/map.service';
+import { TokenService } from './services/token.service';
 import { AuthenticationService } from './services/authentication.service';
 
 //Directives
@@ -47,6 +51,9 @@ export const firebaseConfig = {
     DropzoneDirective,
     MapUploaderComponent,
     MapUploadTaskComponent,
+    TokenUploaderComponent,
+    TokenUploadTaskComponent,
+    TokenEditComponent,
     MapComponent
   ],
   imports: [
@@ -58,7 +65,7 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     DragDropModule
   ],
-  providers: [ MapService, AuthenticationService, AngularFireAuth, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [ TokenService, MapService, AuthenticationService, AngularFireAuth, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

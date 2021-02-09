@@ -6,6 +6,8 @@ import * as firebase from 'firebase/app';
 import * as jquery from 'jquery';
 import { MapService } from '../services/map.service';
 import { Map } from '../models/map.model';
+import { TokenService } from '../services/token.service';
+import { Token } from '../models/token.model';
 import {map} from 'rxjs/operators';
 
 
@@ -21,15 +23,20 @@ export class AdminSidebarComponent implements OnInit {
   panelOpen: boolean;
   modalOpen: boolean;
   maps;
+  tokens;
 
   addingMap: boolean;
   editingMap: boolean;
+  addingToken: boolean;
+  editingToken: boolean;
 
   mapToEdit: Map;
   currentMap: Map;
 
+  tokenToEdit: Token;
+
   galleryName: string;
-  constructor( private mapService: MapService, private authService: AuthenticationService, private router: Router, private route: ActivatedRoute) {
+  constructor( private tokenService: TokenService, private mapService: MapService, private authService: AuthenticationService, private router: Router, private route: ActivatedRoute) {
         // force route reload whenever params change;
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
@@ -44,12 +51,23 @@ export class AdminSidebarComponent implements OnInit {
               this.currentMap = data[i];
             }
           }
-          this.maps = data;
-      }
+        this.maps = data;
+    });
+
+    this.tokenService.getTokens().snapshotChanges().pipe(
+      map(actions => 
+      actions.map(a => ({ key: a.key, ...a.payload.val() }))
+    )).subscribe((data) => {
+          this.tokens = data;
+    }
     );
 
     this.addingMap = false;
     this.editingMap = false;
+    this.addingToken = false;
+    this.editingToken = false;
+
+
     this.modalOpen = false;
     this.panelOpen = false;
     this.user = this.authService.authUser();
@@ -81,10 +99,42 @@ export class AdminSidebarComponent implements OnInit {
   addMap() {
     this.addingMap = true;
     this.editingMap = false;
+    this.addingToken = false;
+    this.editingToken = false;
+  }
+
+  editMap(map: Map) {
+    this.addingMap = false;
+    this.editingMap = true;
+    this.addingToken = false;
+    this.editingToken = false;
+
+    this.mapToEdit = map;
   }
 
   removeMap(map: Map) {
     this.mapService.removeMap(map);
+  }
+
+  removeToken(token: Token) {
+    this.tokenService.removeToken(token);
+  }
+  
+  addToken() {
+    this.addingMap = false;
+    this.editingMap = false;
+    this.addingToken = true;
+    this.editingToken = false;
+
+  }
+
+  editToken(token: Token) {
+    this.addingMap = false;
+    this.editingMap = false;
+    this.addingToken = false;
+    this.editingToken = true;
+
+    this.tokenToEdit = token;
   }
 
   setCurrentMap(newMap: Map) {
@@ -103,10 +153,6 @@ export class AdminSidebarComponent implements OnInit {
 
   }
 
-  editMap(map: Map) {
-    this.addingMap = false;
-    this.editingMap = true;
-    this.mapToEdit = map;
-  }
+
 
 }

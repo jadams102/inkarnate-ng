@@ -36,6 +36,11 @@ div#admin-sidebar {
                             opacity: 100%;
                         }
                     }
+
+                    &.token-preview {
+                        display: block;
+                        width: 100px;
+                    }
                 }
             }
         }

@@ -7,7 +7,10 @@ export class Token {
   createdOn: Date = new Date();
   title: string;
   description: string;
-  state: string;
+  // state: string;
+  // statusEffects: string[];
+  size: string;
+  position: string;
   constructor(file?: File) {
     this.file = file;
   }
