@@ -45,7 +45,10 @@ export class MapComponent implements OnInit, AfterViewInit {
             }
           }
     });
-    this.user = this.authService.authUser();
+    this.authService.authUser().subscribe((data) => {
+      this.user = data;
+    });
+    console.log(this.user)
     this.panZoomPaused = true;
   }
 
@@ -99,20 +102,29 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  updateTokenPosition(i, $event: CdkDragEnd) {
-    let positionAry = $event.source.element.nativeElement.style.transform.split(')',2);
-    let newPositionAry = positionAry[0].split('(', 2)[1].split(',',2);
-    let oldPositionAry = positionAry[1].split('(', 2)[1].split(',',2);
-    let updatedGlobalPositionAry = [];
-    for(let e = 0; e < newPositionAry.length; e++) {
-      let newPos = parseInt(newPositionAry[e], 10) + parseInt(oldPositionAry[e], 10);
-      updatedGlobalPositionAry.push(newPos);
-    }
-    let updatedGlobalPosStr = 'transform: translate3D(' + updatedGlobalPositionAry[0] + "px, " + updatedGlobalPositionAry[1] + "px, 0px)";
-    let newTokenArray = this.currentTokens;
-    newTokenArray[i].position = updatedGlobalPosStr;
-    this.mapService.updateMapTokens(newTokenArray, this.currentMapKey);
+  deleteMapToken(index) {
+    let tokenArray = this.currentTokens;
+    tokenArray.splice(index, 1);
+    this.mapService.updateMapTokens(tokenArray, this.currentMapKey);
+  } 
 
+  updateTokenPosition(i, $event: CdkDragEnd) {
+    if(this.user.uid) {
+      let positionAry = $event.source.element.nativeElement.style.transform.split(')',2);
+      let newPositionAry = positionAry[0].split('(', 2)[1].split(',',2);
+      let oldPositionAry = positionAry[1].split('(', 2)[1].split(',',2);
+      let updatedGlobalPositionAry = [];
+      for(let e = 0; e < newPositionAry.length; e++) {
+        let newPos = parseInt(newPositionAry[e], 10) + parseInt(oldPositionAry[e], 10);
+        updatedGlobalPositionAry.push(newPos);
+      }
+      let updatedGlobalPosStr = 'transform: translate3D(' + updatedGlobalPositionAry[0] + "px, " + updatedGlobalPositionAry[1] + "px, 0px)";
+      let newTokenArray = this.currentTokens;
+      newTokenArray[i].position = updatedGlobalPosStr;
+      this.mapService.updateMapTokens(newTokenArray, this.currentMapKey);
+    } else {
+      alert('Nice try you jokey jokester!')
+    }
   }
 
   ngAfterViewInit() {

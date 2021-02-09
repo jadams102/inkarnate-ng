@@ -1,8 +1,9 @@
 <div (keydown)="onKeyDownEvent($event)" class="map-container">
     <div id="scene" #scene>
-      <div *ngFor="let token of currentTokens; index as i" class="token-container">
-        <img class="token {{token.size}}" cdkDrag [cdkDragDisabled]="!panZoomPaused" (cdkDragEnded)="updateTokenPosition(i, $event)" style="{{token.position}}" src="{{token.url}}">
-
+      <div cdkDrag [cdkDragDisabled]="!panZoomPaused || user === null" (cdkDragEnded)="updateTokenPosition(i, $event)" style="{{token.position}}" *ngFor="let token of currentTokens; index as i" class="token-container {{token.size}}">
+        
+        <img class="token-img" src="{{token.url}}">
+        <img *ngIf="user != null" (click)="deleteMapToken(i)" class="token-control delete" src="../../assets/img/remove-icon-red.png">
       </div>
         <img *ngIf="currentMap" class="current-map" src={{currentMap.url}}>
     </div>

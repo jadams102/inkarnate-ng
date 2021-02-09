@@ -1,7 +1,18 @@
-.token {
+.token-container {
     width: 90px;
     position: absolute;
     cursor: pointer;
+    img {
+        max-width: 100%;
+        &.token-control {
+            display: block;
+            margin-top: 5px;
+            width: 20px;
+            &.delete {
+                margin-left: auto;
+            }
+        }
+    }
     &.tiny {
         width: 30px;
     }
