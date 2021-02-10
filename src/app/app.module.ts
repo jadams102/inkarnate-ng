@@ -22,10 +22,14 @@ import { TokenUploadTaskComponent } from './admin-sidebar/token-upload-task/toke
 import { TokenEditComponent } from './admin-sidebar/token-edit/token-edit.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MapComponent } from './map/map.component';
+import { BlockAddComponent } from './admin-sidebar/block-add/block-add.component';
+import { BlockEditComponent } from './admin-sidebar/block-edit/block-edit.component';
+
 
 //Services
 import { MapService } from './services/map.service';
 import { TokenService } from './services/token.service';
+import { BlockService } from './services/block.service';
 import { AuthenticationService } from './services/authentication.service';
 
 //Directives
@@ -54,7 +58,9 @@ export const firebaseConfig = {
     TokenUploaderComponent,
     TokenUploadTaskComponent,
     TokenEditComponent,
-    MapComponent
+    MapComponent,
+    BlockAddComponent,
+    BlockEditComponent
   ],
   imports: [
     AppRoutingModule,
@@ -65,7 +71,7 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     DragDropModule
   ],
-  providers: [ TokenService, MapService, AuthenticationService, AngularFireAuth, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [ BlockService, TokenService, MapService, AuthenticationService, AngularFireAuth, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

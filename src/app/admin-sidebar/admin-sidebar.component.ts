@@ -29,6 +29,7 @@ export class AdminSidebarComponent implements OnInit {
   editingMap: boolean;
   addingToken: boolean;
   editingToken: boolean;
+  addingBlock: boolean;
 
   mapToEdit: Map;
   currentMap: Map;
@@ -79,6 +80,7 @@ export class AdminSidebarComponent implements OnInit {
     this.editingMap = false;
     this.addingToken = false;
     this.editingToken = false;
+    this.addingBlock = false;
 
     this.modalOpen = false;
     this.panelOpen = false;
@@ -113,6 +115,7 @@ export class AdminSidebarComponent implements OnInit {
     this.editingMap = false;
     this.addingToken = false;
     this.editingToken = false;
+    this.addingBlock = false;
   }
 
   editMap(map: Map) {
@@ -120,6 +123,8 @@ export class AdminSidebarComponent implements OnInit {
     this.editingMap = true;
     this.addingToken = false;
     this.editingToken = false;
+    this.addingBlock = false;
+
 
     this.mapToEdit = map;
   }
@@ -137,6 +142,8 @@ export class AdminSidebarComponent implements OnInit {
     this.editingMap = false;
     this.addingToken = true;
     this.editingToken = false;
+    this.addingBlock = false;
+
   }
 
   addTokenToCurrentMap(token: Token) {
@@ -157,8 +164,19 @@ export class AdminSidebarComponent implements OnInit {
     this.editingMap = false;
     this.addingToken = false;
     this.editingToken = true;
+    this.addingBlock = false;
+
 
     this.tokenToEdit = token;
+  }
+
+  addBlock() {
+    this.addingMap = false;
+    this.editingMap = false;
+    this.addingToken = false;
+    this.editingToken = false;
+    this.addingBlock = true;
+
   }
 
   setCurrentMap(newMap: Map) {

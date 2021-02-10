@@ -15,19 +15,20 @@
   <div class="admin-list">
     <h4>Tokens</h4>
     <img class="add-map-icon" (click)="openModal();addToken()" src="../../assets/img/add-icon-success.png">
-
     <ul class="token-list">
       <li *ngFor="let token of tokens">
         <img (click)="addTokenToCurrentMap(token)" class="token-preview" src="{{token.url}}">
         <a>{{token.name}}</a>    
         <img (click)="editToken(token);openModal()" src="../../assets/img/edit-icon-white.png">
         <img (click)="removeToken(token)" src="../../assets/img/remove-icon-red.png">
-
       </li>
     </ul>
     <br>
     <a class="option" (click)="logOut()">Log Out</a>
   </div>
+</div>
+<div class="block-add-button">
+  <img (click)="openModal();addBlock()" alt="Add FOW Block"  src="../../assets/img/add-icon-success.png">
 </div>
 <div class="modal">
   <div  class="close"><img (click)="closeModal()" src="../../assets/img/close-icon-white.png"  alt="close modal"></div>
@@ -42,6 +43,9 @@
   </div>
   <div *ngIf="editingToken">
     <app-token-edit [tokenToEdit]="tokenToEdit"></app-token-edit>
+  </div>
+  <div *ngIf="addingBlock">
+    <app-block-add [currentMap]='currentMap'></app-block-add>
   </div>
 </div>
 <div id="modal-bg" (click)="closeModal()"></div>

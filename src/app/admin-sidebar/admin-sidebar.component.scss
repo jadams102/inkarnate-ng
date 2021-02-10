@@ -71,7 +71,7 @@ div#admin-sidebar {
 }
 div.admin-toggle {
     position: fixed;
-    top: 100px;
+    top: 10px;
     left: 0px;
     width: 50px;
     transition: all ease-in 0.5s;
@@ -81,6 +81,18 @@ div.admin-toggle {
     }
     &.show {
         left: 250px;
+    }
+
+}
+div.block-add-button {
+    position: fixed;
+    z-index: 1002;
+    bottom: 10px;
+    right: 70px;
+    width: 50px;
+    img {
+        max-width: 100%;
+        display: block;
     }
 
 }

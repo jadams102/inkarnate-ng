@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { MapService } from '../services/map.service';
+import { BlockService } from '../services/block.service';
 import { Map } from '../models/map.model';
+import { Block } from '../models/block.model';
 import { Token } from '../models/token.model';
 import panzoom from "panzoom";
 import { AuthenticationService } from '../services/authentication.service';
@@ -17,20 +19,26 @@ import { CdkDragEnd } from '@angular/cdk/drag-drop';
 })
 export class MapComponent implements OnInit, AfterViewInit {
 
-  constructor( private mapService: MapService, private authService: AuthenticationService, private router: Router, private route: ActivatedRoute) {
+  constructor( private blockService: BlockService, private mapService: MapService, private authService: AuthenticationService, private router: Router, private route: ActivatedRoute) {
     // force route reload whenever params change;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   @ViewChild('scene', { static: false }) scene: ElementRef;
+  
   panZoomController;
   zoomLevels: number[];
   panZoomPaused;
   user;
   currentTokens: Token[];
+  currentBlocks: Block[];
   currentMap: Map;
   currentMapKey: string;
   currentZoomLevel: number;
+
+  editingBlock: boolean;
+  blockToEdit: Block;
+  blockToEditIndex: number;
 
   ngOnInit() {
     this.mapService.getMaps().snapshotChanges().pipe(
@@ -42,13 +50,16 @@ export class MapComponent implements OnInit, AfterViewInit {
               this.currentMap = data[i];
               this.currentMapKey = data[i].key;
               this.currentTokens = data[i].tokens;
+              this.currentBlocks = data[i].blocks;
             }
           }
     });
     this.authService.authUser().subscribe((data) => {
       this.user = data;
+      console.log(this.user);
     });
-    this.panZoomPaused = true;
+    this.panZoomPaused = false;
+    this.editingBlock = false;
   }
 
   zoom() {
@@ -91,20 +102,28 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onKeyDownEvent(event: any){
-    if(event.altKey && this.panZoomController.isPaused() === false) {
-      this.panZoomController.pause()
-      this.panZoomPaused = true;
-    } else if (event.altKey && this.panZoomController.isPaused() === true){
-      this.panZoomController.resume()
-      this.panZoomPaused = false;
-    }
-  }
+  // onKeyDownEvent(event: any){
+  //   if(event.altKey && this.panZoomController.isPaused() === false) {
+  //     this.panZoomController.pause()
+  //     this.panZoomPaused = true;
+  //   } else if (event.altKey && this.panZoomController.isPaused() === true){
+  //     this.panZoomController.resume()
+  //     this.panZoomPaused = false;
+  //   }
+  // }
+
+
 
   deleteMapToken(index) {
     let tokenArray = this.currentTokens;
     tokenArray.splice(index, 1);
     this.mapService.updateMapTokens(tokenArray, this.currentMapKey);
+  } 
+
+  deleteBlock(index) {
+    let blockArray = this.currentBlocks;
+    blockArray.splice(index, 1);
+    this.blockService.updateBlocks(blockArray, this.currentMapKey);
   } 
 
   updateTokenPosition(i, $event: CdkDragEnd) {
@@ -126,13 +145,49 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
   }
 
+  updateBlockPosition(i, $event: CdkDragEnd) {
+    if(this.user.uid) {
+      let positionAry = $event.source.element.nativeElement.style.transform.split(')',2);
+      let newPositionAry = positionAry[0].split('(', 2)[1].split(',',2);
+      let oldPositionAry = positionAry[1].split('(', 2)[1].split(',',2);
+      let updatedGlobalPositionAry = [];
+      for(let e = 0; e < newPositionAry.length; e++) {
+        let newPos = parseInt(newPositionAry[e], 10) + parseInt(oldPositionAry[e], 10);
+        updatedGlobalPositionAry.push(newPos);
+      }
+      let updatedGlobalPosStr = 'transform: translate3D(' + updatedGlobalPositionAry[0] + "px, " + updatedGlobalPositionAry[1] + "px, 0px)";
+      let newBlockArray = this.currentBlocks;
+      newBlockArray[i].position = updatedGlobalPosStr;
+      this.blockService.updateBlocks(newBlockArray, this.currentMapKey);
+    } else {
+      alert('Nice try you jokey jokester!')
+    }
+  }
+
+  editBlock(index) {
+    console.log(index);
+    this.blockToEditIndex = index;
+    this.blockToEdit = this.currentBlocks[index];
+    this.editingBlock = true;
+  }
+
   ngAfterViewInit() {
+    console.log(this.scene);
     if(this.currentMap) {
       this.zoomLevels = [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
       this.currentZoomLevel = this.zoomLevels[4];
       // panzoom(document.querySelector('#scene'));
       this.panZoomController = panzoom(this.scene.nativeElement);
-      this.panZoomController.pause()
     }
   }
+
+  togglePanzoom() {
+    if(this.panZoomController.isPaused() === false) {
+       this.panZoomController.pause()
+       this.panZoomPaused = true;
+     } else if (this.panZoomController.isPaused() === true){
+       this.panZoomController.resume()
+       this.panZoomPaused = false;
+     }
+   }
 }

@@ -10,13 +10,13 @@ import * as jquery from 'jquery';
 export class TokenEditComponent implements OnInit {
   @Input() tokenToEdit;
 
-  constructor(private TokenService: TokenService) { }
+  constructor(private tokenService: TokenService) { }
 
   ngOnInit() {
   }
 
   updateToken(token) {
-    this.TokenService.updateToken(token);
+    this.tokenService.updateToken(token);
   }
 
   closeModal() {

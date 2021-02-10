@@ -10,22 +10,21 @@ import { Token } from '../../models/token.model';
 export class TokenUploaderComponent {
   files: FileList;
   token: Token;
-  addingImages: boolean;
+  // addingImages: boolean;
 
   constructor(private tokenService: TokenService) { 
   }
 
   ngOnInit() {
-    this.addingImages = false;
   }
 
-  toggleAddingImages() {
-    if(!this.addingImages) {
-      this.addingImages = true;
-    } else {
-      this.addingImages = false;
-    }
-  }
+  // toggleAddingImages() {
+  //   if(!this.addingImages) {
+  //     this.addingImages = true;
+  //   } else {
+  //     this.addingImages = false;
+  //   }
+  // }
 
   handleFiles(event){
     this.files = event.target.files

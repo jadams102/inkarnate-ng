@@ -1,35 +1,60 @@
-<div *ngIf="currentMap" class="map-component">
+<div class="map-component">
   <div *ngIf="currentMap.name || currentMap.description" class="map-info">
     <h3 *ngIf="currentMap.name">{{currentMap.name}}</h3>
     <p *ngIf="currentMap.description">{{currentMap.description}}</p>
   </div>
-  <div  (keydown)="onKeyDownEvent($event)" class="map-container">
-  
-      <div id="scene" #scene>
-        <div 
+  <div (click)="togglePanzoom()" [ngClass]="panZoomPaused ? 'locked' : 'unlocked'" class="map-panzoom-control"></div>
+  <div *ngIf="editingBlock" class="block-edit-container">
+    <app-block-edit [blockToEdit]='blockToEdit' [blockIndex]='blockToEditIndex' [currentMap]='currentMap'></app-block-edit>
+  </div>
+  <div class="map-container">
+      <div  id="scene" #scene>
+        <div class="block-layer">
+          <div 
+          *ngFor="let block of currentBlocks; index as i" 
+          class="block" 
+          style="{{block.position}}; height: {{block.height}}px; width: {{block.width}}px"
           cdkDrag 
           [cdkDragDisabled]="!panZoomPaused || user === null" 
-          (cdkDragEnded)="updateTokenPosition(i, $event)" 
+          (cdkDragEnded)="updateBlockPosition(i, $event)" 
+          >
+            <img 
+            *ngIf="user != null" 
+            (click)="editBlock(i)" 
+            class="block-control edit" 
+            src="../../assets/img/edit-icon-white.png"
+            >
+            <img 
+            *ngIf="user != null" 
+            (click)="deleteBlock(i)" 
+            class="block-control delete" 
+            src="../../assets/img/remove-icon-red.png"
+            >
+          </div>
+        </div>
+        <div 
           style="{{token.position}}" 
           *ngFor="let token of currentTokens; index as i" 
-          class="token-container {{token.size}}"
+          class="token-container {{token.size}}"       cdkDrag 
+          [cdkDragDisabled]="!panZoomPaused || user === null" 
+          (cdkDragEnded)="updateTokenPosition(i, $event)" 
         >
-          <img 
-            data-toggle="tooltip" 
-            data-placement="right" 
-            title="{{token.name}}
-  {{token.description}}" 
-            class="token-img" 
-            src="{{token.url}}"
-          >
-          <img 
-            *ngIf="user != null" 
-            (click)="deleteMapToken(i)" 
-            class="token-control delete" 
-            src="../../assets/img/remove-icon-red.png"
-          >
+        <img 
+          data-toggle="tooltip" 
+          data-placement="right" 
+          title="{{token.name}}
+{{token.description}}" 
+          class="token-img" 
+          src="{{token.url}}"
+        >
+        <img 
+          *ngIf="user != null" 
+          (click)="deleteMapToken(i)" 
+          class="token-control delete" 
+          src="../../assets/img/remove-icon-red.png"
+        >
         </div>
-          <img *ngIf="currentMap" class="current-map" src={{currentMap.url}}>
+          <img  *ngIf="currentMap" class="current-map" src={{currentMap.url}}>
       </div>
     </div>
   <!-- <div class="zoom-controls">

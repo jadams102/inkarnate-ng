@@ -1,0 +1,13 @@
+<div class="block-edit-form">
+    <p>Edit FOW Box</p>
+    <div class="form-group">
+        <input [(ngModel)]="blockToEdit.height" type="number" class="form-control">
+    </div>
+    <div class="form-group">
+        <input [(ngModel)]="blockToEdit.width" type="number" class="form-control">
+    </div>
+    <button class="btn btn-info" (click)="updateBlock(blockToEdit)">Save Changes</button>    
+</div>
+
+  
+  
