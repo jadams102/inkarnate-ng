@@ -3,6 +3,7 @@ div#admin-sidebar {
     height: 100vh;
     position: fixed;
     top: 0;
+
     left: -250px;
     width: 250px;
     padding: 20px;
@@ -23,19 +24,23 @@ div#admin-sidebar {
         }
         ul.map-list, ul.token-list {
             list-style: none;
-            padding-left: 10px;
+            padding-left: 0px;
             overflow-y: auto;
+            font-size: 11px;
+            @media screen and (min-width: 900px) {
+                font-size: 15px;
+            }
             li {
                 img {
-                    width: 15px;
+                    width: 10px;
                     margin-left: 5px;
                     cursor: pointer;
                     &:first-child {
                         margin-right: 5px;
                         margin-left: 5px;
-                        opacity: 50%;
+                        opacity: 0.5;
                         &.current-map {
-                            opacity: 100%;
+                            opacity: 1;
                         }
                     }
 
@@ -43,7 +48,7 @@ div#admin-sidebar {
                         display: inline-block;
                         width: 20px;
                         margin-left: 0px;
-                        opacity: 100%;
+                        opacity: 1;
                     }
                 }
             }
@@ -54,6 +59,8 @@ div#admin-sidebar {
             padding:0; 
             width:100%; 
             list-style: none;
+            overflow: auto;
+            max-height: 45vh;
             li {
                 break-inside: avoid-column;
                 margin-bottom: 10px;
@@ -64,6 +71,10 @@ div#admin-sidebar {
             width: 100%;
             cursor: pointer;
         }
+    }
+    @media screen and (min-width: 900px) {
+        left: -350px;
+        width: 350px;
     }
     &.show {
         left: 0px;
@@ -82,14 +93,21 @@ div.admin-toggle {
     &.show {
         left: 250px;
     }
+    @media screen and (min-width: 900px) {
+        &.show {
+            left: 350px;
+        }
+    }
+
 
 }
 div.block-add-button {
     position: fixed;
     z-index: 1002;
     bottom: 10px;
-    right: 70px;
-    width: 50px;
+    right: 45px;
+    width: 30px;
+    height: 30px;
     img {
         max-width: 100%;
         display: block;
@@ -99,11 +117,11 @@ div.block-add-button {
 div.modal {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.85);
-    border: rgba(255, 255, 255, 0.85) 1px solid;
     top: 50%;
     left: 50%;
     width: 300px;
-    max-height: 80vh;
+    min-height: 40vh;
+    max-height: fit-content;
     margin-left: -150px;
     margin-top: -40vh;
     padding: 15px;

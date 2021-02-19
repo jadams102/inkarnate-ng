@@ -34,7 +34,8 @@
               "@firebase/database",
               "@firebase/auth",
               "jquery",
-              "firebase"
+              "firebase",
+              "panzoom"
             ]
           },
           "configurations": {

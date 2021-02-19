@@ -30,7 +30,7 @@ export class TokenUploaderComponent {
     this.files = event.target.files
   }
 
-  uploadFiles(name: string, description: string, size: string, isPlayer: boolean){
+  uploadFiles(name: string, description: string, size: string, isPlayer: string){
     const filesToUpload = this.files;
       this.token = new Token(filesToUpload[0]);
       this.token.name = name;

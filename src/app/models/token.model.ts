@@ -7,7 +7,7 @@ export class Token {
   createdOn: Date = new Date();
   title: string;
   description: string;
-  isPlayer: boolean;
+  isPlayer: string;
   // state: string;
   // statusEffects: string[];
   size: string;

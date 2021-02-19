@@ -6,7 +6,7 @@ import { Map } from '../../models/map.model';
 @Component({
   selector: 'app-block-add',
   templateUrl: './block-add.component.html',
-  styleUrls: ['./block-add.component.css']
+  styleUrls: ['./block-add.component.scss']
 })
 
 export class BlockAddComponent implements OnInit {

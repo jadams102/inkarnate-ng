@@ -8,6 +8,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LoadedDirective } from './loaded.directive';
 
 
 //Components
@@ -23,7 +24,6 @@ import { TokenEditComponent } from './admin-sidebar/token-edit/token-edit.compon
 import { LoginComponent } from './pages/login/login.component';
 import { MapComponent } from './map/map.component';
 import { BlockAddComponent } from './admin-sidebar/block-add/block-add.component';
-import { BlockEditComponent } from './admin-sidebar/block-edit/block-edit.component';
 
 
 //Services
@@ -60,7 +60,7 @@ export const firebaseConfig = {
     TokenEditComponent,
     MapComponent,
     BlockAddComponent,
-    BlockEditComponent
+    LoadedDirective
   ],
   imports: [
     AppRoutingModule,

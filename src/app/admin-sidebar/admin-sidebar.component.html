@@ -27,7 +27,7 @@
     <a class="option" (click)="logOut()">Log Out</a>
   </div>
 </div>
-<div class="block-add-button">
+<div *ngIf='(user|async)?.uid' class="block-add-button">
   <img (click)="openModal();addBlock()" alt="Add FOW Block"  src="../../assets/img/add-icon-success.png">
 </div>
 <div class="modal">

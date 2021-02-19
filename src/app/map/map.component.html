@@ -1,31 +1,43 @@
 <div class="map-component">
-  <div *ngIf="currentMap.name || currentMap.description" class="map-info">
-    <h3 *ngIf="currentMap.name">{{currentMap.name}}</h3>
-    <p *ngIf="currentMap.description">{{currentMap.description}}</p>
+  <div *ngIf="currentMap?.name" class="map-info">
+    <h3 *ngIf="currentMap?.name">{{currentMap.name}}</h3>
+    <p *ngIf="currentMap?.description">{{currentMap.description}}</p>
   </div>
-  <div (click)="togglePanzoom()" [ngClass]="panZoomPaused ? 'locked' : 'unlocked'" class="map-panzoom-control"></div>
+  <div *ngIf='(user|async)?.uid' (click)="togglePanzoom()" [ngClass]="panZoomPaused ? 'locked' : 'unlocked'" class="map-panzoom-control"></div>
   <div *ngIf="editingBlock" class="block-edit-container">
-    <app-block-edit [blockToEdit]='blockToEdit' [blockIndex]='blockToEditIndex' [currentMap]='currentMap'></app-block-edit>
+    <div class="block-edit-form">
+      <div class="form-group">
+        <label>X: </label>
+          <input [(ngModel)]="blockToEdit.width" type="number" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Y: </label>
+
+          <input [(ngModel)]="blockToEdit.height" type="number" class="form-control">
+      </div>
+      <button class="btn btn-info" (click)="updateBlock(blockToEdit)">Save</button>    
+    </div>
   </div>
   <div class="map-container">
-      <div  id="scene" #scene>
-        <div class="block-layer">
+      <div  id="scene" [ngClass]="mapLoaded ? '' : 'hidden'" #scene>
+        <div  class="block-layer">
           <div 
           *ngFor="let block of currentBlocks; index as i" 
           class="block" 
+          [ngClass]="!(user|async)?.uid ? 'hidden' : ''"
           style="{{block.position}}; height: {{block.height}}px; width: {{block.width}}px"
           cdkDrag 
           [cdkDragDisabled]="!panZoomPaused || user === null" 
           (cdkDragEnded)="updateBlockPosition(i, $event)" 
           >
             <img 
-            *ngIf="user != null" 
+            *ngIf="(user|async)?.uid" 
             (click)="editBlock(i)" 
             class="block-control edit" 
             src="../../assets/img/edit-icon-white.png"
             >
             <img 
-            *ngIf="user != null" 
+            *ngIf="(user|async)?.uid" 
             (click)="deleteBlock(i)" 
             class="block-control delete" 
             src="../../assets/img/remove-icon-red.png"
@@ -45,22 +57,14 @@
           title="{{token.name}}
 {{token.description}}" 
           class="token-img" 
-          src="{{token.url}}"
-        >
+          src="{{token.url}}">
         <img 
-          *ngIf="user != null" 
+          *ngIf="(user|async)?.uid" 
           (click)="deleteMapToken(i)" 
           class="token-control delete" 
-          src="../../assets/img/remove-icon-red.png"
-        >
+          src="../../assets/img/remove-icon-red.png">
         </div>
-          <img  *ngIf="currentMap" class="current-map" src={{currentMap.url}}>
+        <img #mapImg id="mapImg" (loaded)="isLoaded()" [ngClass]="mapLoaded ? '' : 'hidden'" *ngIf="currentMap" class="current-map" src={{currentMap.url}}>
       </div>
     </div>
-  <!-- <div class="zoom-controls">
-    <button class="btn btn-info" (click)="zoomToggle(false)">-</button>
-    <span>{{currentZoomLevel * 100}}%</span>
-    <button class="btn btn-info" (click)="zoomToggle(true)">+</button>
-  </div> -->
-  
 </div>
