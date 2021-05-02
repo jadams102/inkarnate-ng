@@ -72,11 +72,8 @@ export class TokenService {
       name: localUpdatedToken.name,
       description: localUpdatedToken.description,
       size: localUpdatedToken.size,
+      sizeString: localUpdatedToken.sizeString
     })
-  }
-
-  updateTokenPosition(localUpdatedToken) {
-    
   }
 
   removeToken(token) {

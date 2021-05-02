@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="map-container">
-      <div  id="scene" [ngClass]="mapLoaded ? '' : 'hidden'" #scene>
+      <div  id="scene" (wheel)="printPosition()" [ngClass]="mapLoaded ? '' : 'hidden'" #scene>
         <div  class="block-layer">
           <div 
           *ngFor="let block of currentBlocks; index as i" 
@@ -45,9 +45,10 @@
           </div>
         </div>
         <div 
-          style="{{token.position}}" 
+          style="{{token.position}} + {{token.sizeString}}"
           *ngFor="let token of currentTokens; index as i" 
-          class="token-container {{token.size}}"       cdkDrag 
+          class="token-container"
+         cdkDrag 
           [cdkDragDisabled]="!panZoomPaused || user === null" 
           (cdkDragEnded)="updateTokenPosition(i, $event)" 
         >

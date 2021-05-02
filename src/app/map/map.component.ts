@@ -70,7 +70,6 @@ export class MapComponent implements OnInit, AfterViewInit {
     const isSmooth = false;
     const scale = this.currentZoomLevel;
 
-
     if (scale) {
       const transform = this.panZoomController.getTransform();
       const deltaX = transform.x;
@@ -117,6 +116,10 @@ export class MapComponent implements OnInit, AfterViewInit {
     blockArray.splice(index, 1);
     this.blockService.updateBlocks(blockArray, this.currentMapKey);
   } 
+
+  printPosition() {
+    console.log(this.panZoomController.getTransform().scale)
+  }
 
   updateTokenPosition(i, $event: CdkDragEnd) {
       let positionAry = $event.source.element.nativeElement.style.transform.split(')',2);

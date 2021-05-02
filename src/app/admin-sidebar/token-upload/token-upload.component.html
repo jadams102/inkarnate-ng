@@ -19,14 +19,8 @@
   
   <div class="form-group">
     <label>Size</label>
-    <select #newSize class="form-control">
-      <option value="tiny">Tiny</option>
-      <option value="small">Small</option>
-      <option selected value="medium">Medium</option>
-      <option value="large">Large</option>
-      <option value="huge">Huge</option>
-      <option value="gargantuan">Gargantuan</option>
-    </select>
+    <input type="range" min="10" max="500" value="50" #newSize [(ngModel)]="range">
+    <p>{{range}}</p>
   </div>
   
   <div class="form-group">

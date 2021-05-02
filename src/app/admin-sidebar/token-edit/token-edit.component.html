@@ -1,22 +1,27 @@
 <div class="edit-image-modal">
   <h3>Edit Token Details</h3>
-  <div class="form-group">
-    <input [(ngModel)]="tokenToEdit.name" type="text" class="form-control" placeholder="Title">
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <input [(ngModel)]="tokenToEdit.name" type="text" class="form-control" placeholder="Title">
+      </div>
+      <div class="form-group">
+        <textarea [(ngModel)]="tokenToEdit.description" type="text" class="form-control" placeholder="Description"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Size</label>
+        <input type="range" min="10" max="500" value="50" [(ngModel)]="tokenToEdit.size">
+        <p>{{tokenToEdit.size}}</p>
+      </div>
+      <button class="btn btn-info" (click)="updateToken(tokenToEdit); closeModal();">Save Changes</button>
+    </div>
+    <div class="col-6">
+      <div class="preview-container" [attr.style]="tokenToEdit.sizeString">
+        <img style="width:100%"src="{{tokenToEdit.url}}" alt="">
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <textarea [(ngModel)]="tokenToEdit.description" type="text" class="form-control" placeholder="Description"></textarea>
-  </div>
-  <div class="form-group">
-    <select [(ngModel)]="tokenToEdit.size" class="form-control" >
-      <option value="tiny">Tiny</option>
-      <option value="small">Small</option>
-      <option value="medium">Medium</option>
-      <option value="large">Large</option>
-      <option value="huge">Huge</option>
-      <option value="gargantuan">Gargantuan</option>
-    </select>
-  </div>
-  <button class="btn btn-info" (click)="updateToken(tokenToEdit); closeModal();">Save Changes</button>
+  
 </div>
 
 

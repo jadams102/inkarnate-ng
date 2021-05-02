@@ -10,7 +10,8 @@ export class Token {
   isPlayer: string;
   // state: string;
   // statusEffects: string[];
-  size: string;
+  size: number;
+  sizeString: string;
   position: string;
   constructor(file?: File) {
     this.file = file;

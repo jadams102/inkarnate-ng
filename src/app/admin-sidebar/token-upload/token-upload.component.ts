@@ -10,6 +10,7 @@ import { Token } from '../../models/token.model';
 export class TokenUploaderComponent {
   files: FileList;
   token: Token;
+  range;
   // addingImages: boolean;
 
   constructor(private tokenService: TokenService) { 
@@ -18,24 +19,17 @@ export class TokenUploaderComponent {
   ngOnInit() {
   }
 
-  // toggleAddingImages() {
-  //   if(!this.addingImages) {
-  //     this.addingImages = true;
-  //   } else {
-  //     this.addingImages = false;
-  //   }
-  // }
-
   handleFiles(event){
     this.files = event.target.files
   }
 
-  uploadFiles(name: string, description: string, size: string, isPlayer: string){
+  uploadFiles(name: string, description: string, size: number, isPlayer: string){
     const filesToUpload = this.files;
       this.token = new Token(filesToUpload[0]);
       this.token.name = name;
       this.token.description = description;
       this.token.size = size;
+      this.token.sizeString = ";width:" + this.token.size + "px";
       this.token.isPlayer = isPlayer;
       this.tokenService.uploadToken(this.token);
   }

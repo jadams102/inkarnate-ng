@@ -6,11 +6,10 @@ div.map-component {
     }
 }
 .token-container {
-    width: 90px;
     position: absolute;
     cursor: pointer;
     img {
-        max-width: 100%;
+        width: 100%;
         &.token-control {
             display: block;
             margin-top: 5px;

@@ -16,6 +16,7 @@ export class TokenEditComponent implements OnInit {
   }
 
   updateToken(token) {
+    token.sizeString = ";width:" + token.size + "px"
     this.tokenService.updateToken(token);
   }
 
